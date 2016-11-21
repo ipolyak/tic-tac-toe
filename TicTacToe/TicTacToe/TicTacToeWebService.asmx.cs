@@ -26,9 +26,8 @@ namespace TicTacToe
         [WebMethod]
         public String MyFirstWebMethod(String firstName, String lastName)
         {
-            //return “How are you ” + firstName + ” ” + lastName + “?”;
-            return String.Format(“How are you { 0}
-            { 1}?”, firstName, lastName);
+            //return “How are you ” + firstName + ” ” + lastName + “?”; 
+            return String.Format("How are you {0} {1}?", firstName, lastName);
         }
     }
 }
