@@ -8,7 +8,7 @@ namespace TicTacToeServer
     public class TicTacToeLogic
     {
         public enum STATE_CELL { EMPTY, TIC, TOE};
-        public enum VERDICT { ERROR, CONTINUE, DRAW, TIC_WINS, TOE_WINS};
+        public enum VERDICT { ERROR, CONTINUE, DRAW, TIC_WINS, TOE_WINS, NONE};
         const int MAX_TURN = 9;
         const int MAX_COL = 3;
         const int MAX_ROW = 3;
@@ -44,7 +44,7 @@ namespace TicTacToeServer
             num_turn++;
         }
 
-        public VERDICT ToeMoved(int row, int col)
+        public static VERDICT ToeMoved(int row, int col)
         {
             STATE_CELL cur_state = GameArea[row, col];
 

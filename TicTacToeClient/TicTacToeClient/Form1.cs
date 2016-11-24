@@ -159,6 +159,10 @@ namespace TicTacToeClient
                 {
                     // Waiting connecting of opponent
                     IsConnected = true;
+
+                    string info = "Game created succesfully. Please wait the opponent!";
+                    Logs.AddToLog(textBox1, info);
+
                     Thread WaitOponnentThread = new Thread(WaitOp);
                     WaitOponnentThread.Start();
                 }
@@ -228,10 +232,9 @@ namespace TicTacToeClient
             {
                 string reply;
                 reply = service.WaitOpponent();
-                Logs.AddToLog(textBox1, "dd");
-                if(reply.Equals("OS"))
+                if(reply.Equals("OC"))
                 {
-                    string info = "Opponent is connected!";
+                    string info = "Opponent is connected. Your turn!";
                     Logs.AddToLog(textBox1, info);
                     OpponentConnected = true;
 
