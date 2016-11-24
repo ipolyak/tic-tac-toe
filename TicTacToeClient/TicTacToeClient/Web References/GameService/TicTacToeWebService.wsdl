@@ -54,6 +54,36 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SendCommandGame">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="row" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="col" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="player_name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendCommandGameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendCommandGameResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveCommand">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="player_name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveCommandResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiveCommandResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="CreateGameSoapIn">
@@ -80,6 +110,18 @@
   <wsdl:message name="WaitOpponentSoapOut">
     <wsdl:part name="parameters" element="tns:WaitOpponentResponse" />
   </wsdl:message>
+  <wsdl:message name="SendCommandGameSoapIn">
+    <wsdl:part name="parameters" element="tns:SendCommandGame" />
+  </wsdl:message>
+  <wsdl:message name="SendCommandGameSoapOut">
+    <wsdl:part name="parameters" element="tns:SendCommandGameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveCommandSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveCommand" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveCommandSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveCommandResponse" />
+  </wsdl:message>
   <wsdl:portType name="TicTacToeWebServiceSoap">
     <wsdl:operation name="CreateGame">
       <wsdl:input message="tns:CreateGameSoapIn" />
@@ -96,6 +138,14 @@
     <wsdl:operation name="WaitOpponent">
       <wsdl:input message="tns:WaitOpponentSoapIn" />
       <wsdl:output message="tns:WaitOpponentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendCommandGame">
+      <wsdl:input message="tns:SendCommandGameSoapIn" />
+      <wsdl:output message="tns:SendCommandGameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveCommand">
+      <wsdl:input message="tns:ReceiveCommandSoapIn" />
+      <wsdl:output message="tns:ReceiveCommandSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="TicTacToeWebServiceSoap" type="tns:TicTacToeWebServiceSoap">
@@ -136,6 +186,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SendCommandGame">
+      <soap:operation soapAction="http://tempuri.org/SendCommandGame" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveCommand">
+      <soap:operation soapAction="http://tempuri.org/ReceiveCommand" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="TicTacToeWebServiceSoap12" type="tns:TicTacToeWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -168,6 +236,24 @@
     </wsdl:operation>
     <wsdl:operation name="WaitOpponent">
       <soap12:operation soapAction="http://tempuri.org/WaitOpponent" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendCommandGame">
+      <soap12:operation soapAction="http://tempuri.org/SendCommandGame" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveCommand">
+      <soap12:operation soapAction="http://tempuri.org/ReceiveCommand" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

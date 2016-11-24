@@ -37,6 +37,10 @@ namespace TicTacToeClient.GameService {
         
         private System.Threading.SendOrPostCallback WaitOpponentOperationCompleted;
         
+        private System.Threading.SendOrPostCallback SendCommandGameOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ReceiveCommandOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -86,6 +90,12 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         public event WaitOpponentCompletedEventHandler WaitOpponentCompleted;
+        
+        /// <remarks/>
+        public event SendCommandGameCompletedEventHandler SendCommandGameCompleted;
+        
+        /// <remarks/>
+        public event ReceiveCommandCompletedEventHandler ReceiveCommandCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CreateGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -202,6 +212,68 @@ namespace TicTacToeClient.GameService {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SendCommandGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string SendCommandGame(int row, int col, string player_name) {
+            object[] results = this.Invoke("SendCommandGame", new object[] {
+                        row,
+                        col,
+                        player_name});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void SendCommandGameAsync(int row, int col, string player_name) {
+            this.SendCommandGameAsync(row, col, player_name, null);
+        }
+        
+        /// <remarks/>
+        public void SendCommandGameAsync(int row, int col, string player_name, object userState) {
+            if ((this.SendCommandGameOperationCompleted == null)) {
+                this.SendCommandGameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSendCommandGameOperationCompleted);
+            }
+            this.InvokeAsync("SendCommandGame", new object[] {
+                        row,
+                        col,
+                        player_name}, this.SendCommandGameOperationCompleted, userState);
+        }
+        
+        private void OnSendCommandGameOperationCompleted(object arg) {
+            if ((this.SendCommandGameCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SendCommandGameCompleted(this, new SendCommandGameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ReceiveCommand", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string ReceiveCommand(string player_name) {
+            object[] results = this.Invoke("ReceiveCommand", new object[] {
+                        player_name});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ReceiveCommandAsync(string player_name) {
+            this.ReceiveCommandAsync(player_name, null);
+        }
+        
+        /// <remarks/>
+        public void ReceiveCommandAsync(string player_name, object userState) {
+            if ((this.ReceiveCommandOperationCompleted == null)) {
+                this.ReceiveCommandOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReceiveCommandOperationCompleted);
+            }
+            this.InvokeAsync("ReceiveCommand", new object[] {
+                        player_name}, this.ReceiveCommandOperationCompleted, userState);
+        }
+        
+        private void OnReceiveCommandOperationCompleted(object arg) {
+            if ((this.ReceiveCommandCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ReceiveCommandCompleted(this, new ReceiveCommandCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -311,6 +383,58 @@ namespace TicTacToeClient.GameService {
         private object[] results;
         
         internal WaitOpponentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void SendCommandGameCompletedEventHandler(object sender, SendCommandGameCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SendCommandGameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal SendCommandGameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void ReceiveCommandCompletedEventHandler(object sender, ReceiveCommandCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ReceiveCommandCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ReceiveCommandCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

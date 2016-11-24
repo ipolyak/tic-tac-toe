@@ -31,7 +31,171 @@ namespace TicTacToeClient
 
         private void SendCommand(int row, int col)
         {
+            string reply;
+            reply = service.SendCommandGame(row, col, my_name);
 
+            if(reply.Equals("W"))
+            {
+                ConfirmCommand(row, col);
+                OpponentTurned = true;
+                // TODO: Create receive thread
+            }
+
+            if(reply.Equals("TiW"))
+            {
+                ConfirmCommand(row, col);
+                MyScoreUp();
+
+                IsConnected = false;
+                OpponentConnected = false;
+
+                string info = "Tic wins!";
+                Logs.AddToLog(textBox1, info);
+            }
+
+            if(reply.Equals("D"))
+            {
+                ConfirmCommand(row, col);
+
+                IsConnected = false;
+                OpponentConnected = false;
+
+                string info = "Draw!";
+                Logs.AddToLog(textBox1, info);
+            }
+
+            if (reply.Equals("E"))
+            {
+                string info = "This cell already occupied! You should choose another cell";
+                Logs.AddToLog(textBox1, info);
+            }
+        }
+
+        private void ConfirmCommand(int row, int col)
+        {
+            if(row == 0 && col == 0)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button1.Text = "X";
+                }
+                else
+                {
+                    button1.Text = "O";
+                }
+            }
+
+            if (row == 0 && col == 1)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button2.Text = "X";
+                }
+                else
+                {
+                    button2.Text = "O";
+                }
+            }
+
+            if (row == 0 && col == 2)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button3.Text = "X";
+                }
+                else
+                {
+                    button3.Text = "O";
+                }
+            }
+
+            if (row == 1 && col == 0)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button4.Text = "X";
+                }
+                else
+                {
+                    button4.Text = "O";
+                }
+            }
+
+            if (row == 1 && col == 1)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button5.Text = "X";
+                }
+                else
+                {
+                    button5.Text = "O";
+                }
+            }
+
+            if (row == 1 && col == 2)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button6.Text = "X";
+                }
+                else
+                {
+                    button6.Text = "O";
+                }
+            }
+
+            if (row == 2 && col == 0)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button7.Text = "X";
+                }
+                else
+                {
+                    button7.Text = "O";
+                }
+            }
+
+            if (row == 2 && col == 1)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button8.Text = "X";
+                }
+                else
+                {
+                    button8.Text = "O";
+                }
+            }
+
+            if (row == 2 && col == 2)
+            {
+                if (my_name.Equals("Tic"))
+                {
+                    button9.Text = "X";
+                }
+                else
+                {
+                    button9.Text = "O";
+                }
+            }
+        }
+
+        private void MyScoreUp()
+        {
+            int curr_score = Convert.ToInt32(label4.Text);
+            curr_score++;
+
+            label4.Text = curr_score.ToString();
+        }
+
+        private void EnemyScoreUp()
+        {
+            int curr_score = Convert.ToInt32(label5.Text);
+            curr_score++;
+
+            label5.Text = curr_score.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -116,7 +116,7 @@ namespace TicTacToeServer
         }
 
         [WebMethod]
-        public string SendCommandGame(int row, int col, int player_name)
+        public string SendCommandGame(int row, int col, string player_name)
         {
             TicTacToeLogic.VERDICT verdict;
 
