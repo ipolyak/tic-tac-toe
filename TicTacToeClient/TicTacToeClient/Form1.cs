@@ -19,6 +19,7 @@ namespace TicTacToeClient
         int cell_coord_col = -1;
         bool IsConnected = false;
         bool OpponentConnected = false;
+        bool OpponentTurned = false;
 
         string my_name;
 
@@ -28,12 +29,27 @@ namespace TicTacToeClient
             InitializeComponent();
         }
 
+        private void SendCommand(int row, int col)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if(OpponentConnected)
             {
-                cell_coord_row = 0;
-                cell_coord_col = 0;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 0;
+                    cell_coord_col = 0;
+
+                    SendCommand(0, 0);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -46,8 +62,18 @@ namespace TicTacToeClient
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 0;
-                cell_coord_col = 1;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 0;
+                    cell_coord_col = 1;
+
+                    SendCommand(0, 1);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -60,8 +86,18 @@ namespace TicTacToeClient
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 0;
-                cell_coord_col = 2;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 0;
+                    cell_coord_col = 2;
+
+                    SendCommand(0, 2);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -72,16 +108,36 @@ namespace TicTacToeClient
 
         private void button5_Click(object sender, EventArgs e)
         {
-            cell_coord_row = 1;
-            cell_coord_col = 0;
+            if (!OpponentTurned)
+            {
+                cell_coord_row = 1;
+                cell_coord_col = 0;
+
+                SendCommand(1, 0);
+            }
+            else
+            {
+                string info = "Opponent turn. Please wait";
+                Logs.AddToLog(textBox1, info);
+            }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 1;
-                cell_coord_col = 1;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 1;
+                    cell_coord_col = 1;
+
+                    SendCommand(1, 1);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -94,8 +150,18 @@ namespace TicTacToeClient
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 1;
-                cell_coord_col = 2;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 1;
+                    cell_coord_col = 2;
+
+                    SendCommand(1, 2);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -108,8 +174,18 @@ namespace TicTacToeClient
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 2;
-                cell_coord_col = 0;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 2;
+                    cell_coord_col = 0;
+
+                    SendCommand(2, 0);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -122,8 +198,18 @@ namespace TicTacToeClient
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 2;
-                cell_coord_col = 1;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 2;
+                    cell_coord_col = 1;
+
+                    SendCommand(2, 1);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -136,8 +222,18 @@ namespace TicTacToeClient
         {
             if (OpponentConnected)
             {
-                cell_coord_row = 2;
-                cell_coord_col = 2;
+                if (!OpponentTurned)
+                {
+                    cell_coord_row = 2;
+                    cell_coord_col = 2;
+
+                    SendCommand(2, 2);
+                }
+                else
+                {
+                    string info = "Opponent turn. Please wait";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
@@ -159,6 +255,7 @@ namespace TicTacToeClient
                 {
                     // Waiting connecting of opponent
                     IsConnected = true;
+                    OpponentTurned = false;
 
                     string info = "Game created succesfully. Please wait the opponent!";
                     Logs.AddToLog(textBox1, info);
@@ -210,6 +307,8 @@ namespace TicTacToeClient
                 if(reply.Equals("JS"))
                 {
                     IsConnected = true;
+                    OpponentTurned = true;
+
                     string info = "Join to game succesfull!";
                     Logs.AddToLog(textBox1, info);
                 }
