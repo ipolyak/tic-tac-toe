@@ -41,6 +41,11 @@
             this.button11 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button12 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -126,7 +131,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(721, 48);
+            this.button10.Location = new System.Drawing.Point(840, 9);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(159, 51);
             this.button10.TabIndex = 9;
@@ -136,7 +141,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(721, 145);
+            this.button11.Location = new System.Drawing.Point(840, 145);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(159, 49);
             this.button11.TabIndex = 10;
@@ -162,11 +167,62 @@
             this.textBox1.Size = new System.Drawing.Size(188, 286);
             this.textBox1.TabIndex = 13;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(804, 230);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 17);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "MyScore";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(911, 230);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(88, 17);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "EnemyScore";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(824, 271);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(16, 17);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "0";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(937, 271);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(16, 17);
+            this.label5.TabIndex = 17;
+            this.label5.Text = "0";
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(840, 79);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(159, 49);
+            this.button12.TabIndex = 18;
+            this.button12.Text = "Join To Game";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(892, 467);
+            this.ClientSize = new System.Drawing.Size(1011, 467);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button11);
@@ -202,6 +258,11 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button button12;
     }
 }
 

@@ -17,14 +17,39 @@ namespace TicTacToeServer
     // [System.Web.Script.Services.ScriptService]
     public class TicTacToeWebService : System.Web.Services.WebService
     {
-        int num_turn = 1;
         static protected ArrayList arrPlayers = new ArrayList();
         static protected ArrayList arrCommands = new ArrayList();
 
         [WebMethod]
-        public string HelloWorld()
+        public string CreateGame(string player_name)
         {
-            return "Привет всем!";
+            if(arrPlayers.Count == 0)
+            {
+                arrPlayers.Add(player_name);
+                TicTacToeLogic.InitGame();
+
+                return "CS"; // Creating success
+            }
+            else
+            {
+                return "CE"; // Creating error
+            }
         }
+
+        [WebMethod]
+        public string JoinToGame(string player_name)
+        {
+            if (arrPlayers.Count == 1)
+            {
+                arrPlayers.Add(player_name);
+
+                return "JS"; // Join success
+            }
+            else
+            {
+                return "JE"; // Join error
+            }
+        }
+
     }
 }

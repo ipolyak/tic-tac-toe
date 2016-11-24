@@ -13,10 +13,10 @@ namespace TicTacToeServer
         const int MAX_COL = 3;
         const int MAX_ROW = 3;
 
-        STATE_CELL[,] GameArea = new STATE_CELL[MAX_ROW, MAX_COL];
+        static STATE_CELL[,] GameArea = new STATE_CELL[MAX_ROW, MAX_COL];
 
         static int num_turn;
-        public void InitGame()
+        public static void InitGame()
         {
             num_turn = 0;
 
@@ -38,7 +38,7 @@ namespace TicTacToeServer
             return STATE_CELL.TOE;
         }
 
-        private void NextTurn()
+        private static void NextTurn()
         {
             num_turn++;
         }
@@ -59,7 +59,7 @@ namespace TicTacToeServer
             }
         }
 
-        public VERDICT TickMoved(int row, int col)
+        public static VERDICT TickMoved(int row, int col)
         {
             STATE_CELL cur_state = GameArea[row, col];
 
@@ -75,7 +75,7 @@ namespace TicTacToeServer
             }
         }
 
-        private VERDICT DetermineVerdict(int row, int col)
+        private static VERDICT DetermineVerdict(int row, int col)
         {
             STATE_CELL cur_state = GameArea[row, col];
 
