@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TicTacToeClient.GameService;
 
 namespace TicTacToeClient
 {
     public partial class Form1 : Form
     {
+        TicTacToeWebService service = new TicTacToeWebService();
         int cell_coord = -1;
 
         public Form1()
@@ -22,6 +24,7 @@ namespace TicTacToeClient
         private void button1_Click(object sender, EventArgs e)
         {
             cell_coord = 1;
+            
             Logs.AddToLog(textBox1, "21");
         }
 

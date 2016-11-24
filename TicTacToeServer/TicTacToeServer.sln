@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeServer", "TicTacToeServer\TicTacToeServer.csproj", "{5A6C14AD-938D-420A-8C51-261793E830A1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeClient", "..\TicTacToeClient\TicTacToeClient\TicTacToeClient.csproj", "{7C099A13-F0B0-4B34-8655-87DFAC3415CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5A6C14AD-938D-420A-8C51-261793E830A1} = {5A6C14AD-938D-420A-8C51-261793E830A1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

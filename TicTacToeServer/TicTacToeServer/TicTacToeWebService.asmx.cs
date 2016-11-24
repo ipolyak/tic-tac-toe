@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,9 @@ namespace TicTacToeServer
     // [System.Web.Script.Services.ScriptService]
     public class TicTacToeWebService : System.Web.Services.WebService
     {
+        int num_turn = 1;
+        static protected ArrayList arrPlayers = new ArrayList();
+        static protected ArrayList arrCommands = new ArrayList();
 
         [WebMethod]
         public string HelloWorld()

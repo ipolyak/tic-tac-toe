@@ -389,6 +389,7 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="TicTacToeLogic.cs" />
     <Compile Include="TicTacToeWebService.asmx.cs">
       <DependentUpon>TicTacToeWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
