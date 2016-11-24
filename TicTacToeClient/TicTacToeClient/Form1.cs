@@ -53,7 +53,19 @@ namespace TicTacToeClient
                 Logs.AddToLog(textBox1, info);
             }
 
-            if(reply.Equals("D"))
+            if (reply.Equals("ToW"))
+            {
+                ConfirmCommand(row, col);
+                MyScoreUp();
+
+                IsConnected = false;
+                OpponentConnected = false;
+
+                string info = "Toe wins!";
+                Logs.AddToLog(textBox1, info);
+            }
+
+            if (reply.Equals("D"))
             {
                 ConfirmCommand(row, col);
 
