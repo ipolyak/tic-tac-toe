@@ -95,7 +95,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Service References\ServiceReference1\TicTacToeClient.ServiceReference1.HelloWorldResponse.datasource">
+    <None Include="Service References\ServiceReference1\TicTacToeClient.ServiceReference1.CreateGameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\TicTacToeClient.ServiceReference1.ExitFromGameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\TicTacToeClient.ServiceReference1.JoinToGameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference1\TicTacToeClient.ServiceReference1.WaitOpponentResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReference1\TicTacToeWebService.wsdl" />

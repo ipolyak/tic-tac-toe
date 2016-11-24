@@ -54,7 +54,12 @@ namespace TicTacToeServer
         [WebMethod]
         public string ExitFromGame(string player_name)
         {
-            arrPlayers.Remove(player_name);
+            for (int i = 0; i < arrPlayers.Count; i++)
+            {
+                if (arrPlayers[i].ToString() == player_name)
+                    arrPlayers.RemoveAt(i);
+            }
+
             return "ES"; // Exit success 
         }
 

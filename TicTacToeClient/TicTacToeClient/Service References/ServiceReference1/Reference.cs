@@ -15,54 +15,48 @@ namespace TicTacToeClient.ServiceReference1 {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.TicTacToeWebServiceSoap")]
     public interface TicTacToeWebServiceSoap {
         
-        // CODEGEN: Контракт генерации сообщений с именем HelloWorldResult из пространства имен http://tempuri.org/ не отмечен как обнуляемый
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/HelloWorld", ReplyAction="*")]
-        TicTacToeClient.ServiceReference1.HelloWorldResponse HelloWorld(TicTacToeClient.ServiceReference1.HelloWorldRequest request);
+        // CODEGEN: Контракт генерации сообщений с именем player_name из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateGame", ReplyAction="*")]
+        TicTacToeClient.ServiceReference1.CreateGameResponse CreateGame(TicTacToeClient.ServiceReference1.CreateGameRequest request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/HelloWorld", ReplyAction="*")]
-        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.HelloWorldResponse> HelloWorldAsync(TicTacToeClient.ServiceReference1.HelloWorldRequest request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/CreateGame", ReplyAction="*")]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.CreateGameResponse> CreateGameAsync(TicTacToeClient.ServiceReference1.CreateGameRequest request);
+        
+        // CODEGEN: Контракт генерации сообщений с именем player_name из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/JoinToGame", ReplyAction="*")]
+        TicTacToeClient.ServiceReference1.JoinToGameResponse JoinToGame(TicTacToeClient.ServiceReference1.JoinToGameRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/JoinToGame", ReplyAction="*")]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.JoinToGameResponse> JoinToGameAsync(TicTacToeClient.ServiceReference1.JoinToGameRequest request);
+        
+        // CODEGEN: Контракт генерации сообщений с именем player_name из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ExitFromGame", ReplyAction="*")]
+        TicTacToeClient.ServiceReference1.ExitFromGameResponse ExitFromGame(TicTacToeClient.ServiceReference1.ExitFromGameRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ExitFromGame", ReplyAction="*")]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.ExitFromGameResponse> ExitFromGameAsync(TicTacToeClient.ServiceReference1.ExitFromGameRequest request);
+        
+        // CODEGEN: Контракт генерации сообщений с именем WaitOpponentResult из пространства имен http://tempuri.org/ не отмечен как обнуляемый
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/WaitOpponent", ReplyAction="*")]
+        TicTacToeClient.ServiceReference1.WaitOpponentResponse WaitOpponent(TicTacToeClient.ServiceReference1.WaitOpponentRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/WaitOpponent", ReplyAction="*")]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.WaitOpponentResponse> WaitOpponentAsync(TicTacToeClient.ServiceReference1.WaitOpponentRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class HelloWorldRequest {
+    public partial class CreateGameRequest {
         
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="HelloWorld", Namespace="http://tempuri.org/", Order=0)]
-        public TicTacToeClient.ServiceReference1.HelloWorldRequestBody Body;
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateGame", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.CreateGameRequestBody Body;
         
-        public HelloWorldRequest() {
+        public CreateGameRequest() {
         }
         
-        public HelloWorldRequest(TicTacToeClient.ServiceReference1.HelloWorldRequestBody Body) {
-            this.Body = Body;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute()]
-    public partial class HelloWorldRequestBody {
-        
-        public HelloWorldRequestBody() {
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class HelloWorldResponse {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Name="HelloWorldResponse", Namespace="http://tempuri.org/", Order=0)]
-        public TicTacToeClient.ServiceReference1.HelloWorldResponseBody Body;
-        
-        public HelloWorldResponse() {
-        }
-        
-        public HelloWorldResponse(TicTacToeClient.ServiceReference1.HelloWorldResponseBody Body) {
+        public CreateGameRequest(TicTacToeClient.ServiceReference1.CreateGameRequestBody Body) {
             this.Body = Body;
         }
     }
@@ -71,16 +65,247 @@ namespace TicTacToeClient.ServiceReference1 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
-    public partial class HelloWorldResponseBody {
+    public partial class CreateGameRequestBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public string HelloWorldResult;
+        public string player_name;
         
-        public HelloWorldResponseBody() {
+        public CreateGameRequestBody() {
         }
         
-        public HelloWorldResponseBody(string HelloWorldResult) {
-            this.HelloWorldResult = HelloWorldResult;
+        public CreateGameRequestBody(string player_name) {
+            this.player_name = player_name;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class CreateGameResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="CreateGameResponse", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.CreateGameResponseBody Body;
+        
+        public CreateGameResponse() {
+        }
+        
+        public CreateGameResponse(TicTacToeClient.ServiceReference1.CreateGameResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class CreateGameResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string CreateGameResult;
+        
+        public CreateGameResponseBody() {
+        }
+        
+        public CreateGameResponseBody(string CreateGameResult) {
+            this.CreateGameResult = CreateGameResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class JoinToGameRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="JoinToGame", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.JoinToGameRequestBody Body;
+        
+        public JoinToGameRequest() {
+        }
+        
+        public JoinToGameRequest(TicTacToeClient.ServiceReference1.JoinToGameRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class JoinToGameRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string player_name;
+        
+        public JoinToGameRequestBody() {
+        }
+        
+        public JoinToGameRequestBody(string player_name) {
+            this.player_name = player_name;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class JoinToGameResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="JoinToGameResponse", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.JoinToGameResponseBody Body;
+        
+        public JoinToGameResponse() {
+        }
+        
+        public JoinToGameResponse(TicTacToeClient.ServiceReference1.JoinToGameResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class JoinToGameResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string JoinToGameResult;
+        
+        public JoinToGameResponseBody() {
+        }
+        
+        public JoinToGameResponseBody(string JoinToGameResult) {
+            this.JoinToGameResult = JoinToGameResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ExitFromGameRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ExitFromGame", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.ExitFromGameRequestBody Body;
+        
+        public ExitFromGameRequest() {
+        }
+        
+        public ExitFromGameRequest(TicTacToeClient.ServiceReference1.ExitFromGameRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ExitFromGameRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string player_name;
+        
+        public ExitFromGameRequestBody() {
+        }
+        
+        public ExitFromGameRequestBody(string player_name) {
+            this.player_name = player_name;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ExitFromGameResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ExitFromGameResponse", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.ExitFromGameResponseBody Body;
+        
+        public ExitFromGameResponse() {
+        }
+        
+        public ExitFromGameResponse(TicTacToeClient.ServiceReference1.ExitFromGameResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ExitFromGameResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string ExitFromGameResult;
+        
+        public ExitFromGameResponseBody() {
+        }
+        
+        public ExitFromGameResponseBody(string ExitFromGameResult) {
+            this.ExitFromGameResult = ExitFromGameResult;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class WaitOpponentRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="WaitOpponent", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.WaitOpponentRequestBody Body;
+        
+        public WaitOpponentRequest() {
+        }
+        
+        public WaitOpponentRequest(TicTacToeClient.ServiceReference1.WaitOpponentRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute()]
+    public partial class WaitOpponentRequestBody {
+        
+        public WaitOpponentRequestBody() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class WaitOpponentResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="WaitOpponentResponse", Namespace="http://tempuri.org/", Order=0)]
+        public TicTacToeClient.ServiceReference1.WaitOpponentResponseBody Body;
+        
+        public WaitOpponentResponse() {
+        }
+        
+        public WaitOpponentResponse(TicTacToeClient.ServiceReference1.WaitOpponentResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class WaitOpponentResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public string WaitOpponentResult;
+        
+        public WaitOpponentResponseBody() {
+        }
+        
+        public WaitOpponentResponseBody(string WaitOpponentResult) {
+            this.WaitOpponentResult = WaitOpponentResult;
         }
     }
     
@@ -112,26 +337,101 @@ namespace TicTacToeClient.ServiceReference1 {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        TicTacToeClient.ServiceReference1.HelloWorldResponse TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.HelloWorld(TicTacToeClient.ServiceReference1.HelloWorldRequest request) {
-            return base.Channel.HelloWorld(request);
+        TicTacToeClient.ServiceReference1.CreateGameResponse TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.CreateGame(TicTacToeClient.ServiceReference1.CreateGameRequest request) {
+            return base.Channel.CreateGame(request);
         }
         
-        public string HelloWorld() {
-            TicTacToeClient.ServiceReference1.HelloWorldRequest inValue = new TicTacToeClient.ServiceReference1.HelloWorldRequest();
-            inValue.Body = new TicTacToeClient.ServiceReference1.HelloWorldRequestBody();
-            TicTacToeClient.ServiceReference1.HelloWorldResponse retVal = ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).HelloWorld(inValue);
-            return retVal.Body.HelloWorldResult;
+        public string CreateGame(string player_name) {
+            TicTacToeClient.ServiceReference1.CreateGameRequest inValue = new TicTacToeClient.ServiceReference1.CreateGameRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.CreateGameRequestBody();
+            inValue.Body.player_name = player_name;
+            TicTacToeClient.ServiceReference1.CreateGameResponse retVal = ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).CreateGame(inValue);
+            return retVal.Body.CreateGameResult;
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.HelloWorldResponse> TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.HelloWorldAsync(TicTacToeClient.ServiceReference1.HelloWorldRequest request) {
-            return base.Channel.HelloWorldAsync(request);
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.CreateGameResponse> TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.CreateGameAsync(TicTacToeClient.ServiceReference1.CreateGameRequest request) {
+            return base.Channel.CreateGameAsync(request);
         }
         
-        public System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.HelloWorldResponse> HelloWorldAsync() {
-            TicTacToeClient.ServiceReference1.HelloWorldRequest inValue = new TicTacToeClient.ServiceReference1.HelloWorldRequest();
-            inValue.Body = new TicTacToeClient.ServiceReference1.HelloWorldRequestBody();
-            return ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).HelloWorldAsync(inValue);
+        public System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.CreateGameResponse> CreateGameAsync(string player_name) {
+            TicTacToeClient.ServiceReference1.CreateGameRequest inValue = new TicTacToeClient.ServiceReference1.CreateGameRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.CreateGameRequestBody();
+            inValue.Body.player_name = player_name;
+            return ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).CreateGameAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        TicTacToeClient.ServiceReference1.JoinToGameResponse TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.JoinToGame(TicTacToeClient.ServiceReference1.JoinToGameRequest request) {
+            return base.Channel.JoinToGame(request);
+        }
+        
+        public string JoinToGame(string player_name) {
+            TicTacToeClient.ServiceReference1.JoinToGameRequest inValue = new TicTacToeClient.ServiceReference1.JoinToGameRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.JoinToGameRequestBody();
+            inValue.Body.player_name = player_name;
+            TicTacToeClient.ServiceReference1.JoinToGameResponse retVal = ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).JoinToGame(inValue);
+            return retVal.Body.JoinToGameResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.JoinToGameResponse> TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.JoinToGameAsync(TicTacToeClient.ServiceReference1.JoinToGameRequest request) {
+            return base.Channel.JoinToGameAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.JoinToGameResponse> JoinToGameAsync(string player_name) {
+            TicTacToeClient.ServiceReference1.JoinToGameRequest inValue = new TicTacToeClient.ServiceReference1.JoinToGameRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.JoinToGameRequestBody();
+            inValue.Body.player_name = player_name;
+            return ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).JoinToGameAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        TicTacToeClient.ServiceReference1.ExitFromGameResponse TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.ExitFromGame(TicTacToeClient.ServiceReference1.ExitFromGameRequest request) {
+            return base.Channel.ExitFromGame(request);
+        }
+        
+        public string ExitFromGame(string player_name) {
+            TicTacToeClient.ServiceReference1.ExitFromGameRequest inValue = new TicTacToeClient.ServiceReference1.ExitFromGameRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.ExitFromGameRequestBody();
+            inValue.Body.player_name = player_name;
+            TicTacToeClient.ServiceReference1.ExitFromGameResponse retVal = ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).ExitFromGame(inValue);
+            return retVal.Body.ExitFromGameResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.ExitFromGameResponse> TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.ExitFromGameAsync(TicTacToeClient.ServiceReference1.ExitFromGameRequest request) {
+            return base.Channel.ExitFromGameAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.ExitFromGameResponse> ExitFromGameAsync(string player_name) {
+            TicTacToeClient.ServiceReference1.ExitFromGameRequest inValue = new TicTacToeClient.ServiceReference1.ExitFromGameRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.ExitFromGameRequestBody();
+            inValue.Body.player_name = player_name;
+            return ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).ExitFromGameAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        TicTacToeClient.ServiceReference1.WaitOpponentResponse TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.WaitOpponent(TicTacToeClient.ServiceReference1.WaitOpponentRequest request) {
+            return base.Channel.WaitOpponent(request);
+        }
+        
+        public string WaitOpponent() {
+            TicTacToeClient.ServiceReference1.WaitOpponentRequest inValue = new TicTacToeClient.ServiceReference1.WaitOpponentRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.WaitOpponentRequestBody();
+            TicTacToeClient.ServiceReference1.WaitOpponentResponse retVal = ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).WaitOpponent(inValue);
+            return retVal.Body.WaitOpponentResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.WaitOpponentResponse> TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap.WaitOpponentAsync(TicTacToeClient.ServiceReference1.WaitOpponentRequest request) {
+            return base.Channel.WaitOpponentAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<TicTacToeClient.ServiceReference1.WaitOpponentResponse> WaitOpponentAsync() {
+            TicTacToeClient.ServiceReference1.WaitOpponentRequest inValue = new TicTacToeClient.ServiceReference1.WaitOpponentRequest();
+            inValue.Body = new TicTacToeClient.ServiceReference1.WaitOpponentRequestBody();
+            return ((TicTacToeClient.ServiceReference1.TicTacToeWebServiceSoap)(this)).WaitOpponentAsync(inValue);
         }
     }
 }

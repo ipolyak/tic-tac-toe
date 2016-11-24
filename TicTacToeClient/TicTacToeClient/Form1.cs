@@ -24,6 +24,7 @@ namespace TicTacToeClient
 
         public Form1()
         {
+            System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
 
