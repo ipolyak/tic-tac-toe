@@ -28,6 +28,7 @@ namespace TicTacToeServer
                 }
             }
         }
+
         public static STATE_CELL WhoseTurn()
         {
             if(num_turn % 2 == 0)

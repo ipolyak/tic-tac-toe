@@ -33,6 +33,10 @@ namespace TicTacToeClient.GameService {
         
         private System.Threading.SendOrPostCallback JoinToGameOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ExitFromGameOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback WaitOpponentOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -76,6 +80,12 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         public event JoinToGameCompletedEventHandler JoinToGameCompleted;
+        
+        /// <remarks/>
+        public event ExitFromGameCompletedEventHandler ExitFromGameCompleted;
+        
+        /// <remarks/>
+        public event WaitOpponentCompletedEventHandler WaitOpponentCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CreateGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -132,6 +142,62 @@ namespace TicTacToeClient.GameService {
             if ((this.JoinToGameCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.JoinToGameCompleted(this, new JoinToGameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ExitFromGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string ExitFromGame(string player_name) {
+            object[] results = this.Invoke("ExitFromGame", new object[] {
+                        player_name});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ExitFromGameAsync(string player_name) {
+            this.ExitFromGameAsync(player_name, null);
+        }
+        
+        /// <remarks/>
+        public void ExitFromGameAsync(string player_name, object userState) {
+            if ((this.ExitFromGameOperationCompleted == null)) {
+                this.ExitFromGameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnExitFromGameOperationCompleted);
+            }
+            this.InvokeAsync("ExitFromGame", new object[] {
+                        player_name}, this.ExitFromGameOperationCompleted, userState);
+        }
+        
+        private void OnExitFromGameOperationCompleted(object arg) {
+            if ((this.ExitFromGameCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ExitFromGameCompleted(this, new ExitFromGameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/WaitOpponent", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string WaitOpponent() {
+            object[] results = this.Invoke("WaitOpponent", new object[0]);
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void WaitOpponentAsync() {
+            this.WaitOpponentAsync(null);
+        }
+        
+        /// <remarks/>
+        public void WaitOpponentAsync(object userState) {
+            if ((this.WaitOpponentOperationCompleted == null)) {
+                this.WaitOpponentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWaitOpponentOperationCompleted);
+            }
+            this.InvokeAsync("WaitOpponent", new object[0], this.WaitOpponentOperationCompleted, userState);
+        }
+        
+        private void OnWaitOpponentOperationCompleted(object arg) {
+            if ((this.WaitOpponentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.WaitOpponentCompleted(this, new WaitOpponentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -193,6 +259,58 @@ namespace TicTacToeClient.GameService {
         private object[] results;
         
         internal JoinToGameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void ExitFromGameCompletedEventHandler(object sender, ExitFromGameCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ExitFromGameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ExitFromGameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void WaitOpponentCompletedEventHandler(object sender, WaitOpponentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class WaitOpponentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal WaitOpponentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

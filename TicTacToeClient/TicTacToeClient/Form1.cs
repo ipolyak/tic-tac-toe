@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TicTacToeClient.GameService;
+using System.Threading;
 
 namespace TicTacToeClient
 {
@@ -18,6 +19,8 @@ namespace TicTacToeClient
         int cell_coord_col = -1;
         bool IsConnected = false;
         bool OpponentConnected = false;
+
+        string my_name;
 
         public Form1()
         {
@@ -147,15 +150,20 @@ namespace TicTacToeClient
             if(!IsConnected)
             {
                 string reply;
-                reply = service.CreateGame("Tic");
-                if(reply.Equals("CS"))
+
+                my_name = "Tic";
+                reply = service.CreateGame(my_name);
+
+                if (reply.Equals("CS"))
                 {
                     // Waiting connecting of opponent
                     IsConnected = true;
+                    Thread WaitOponnentThread = new Thread(WaitOp);
+                    WaitOponnentThread.Start();
                 }
                 else
                 {
-                    string info = "Game already created!";
+                    string info = "Game already created by some user!";
                     Logs.AddToLog(textBox1, info);
                 }
             }
@@ -168,20 +176,68 @@ namespace TicTacToeClient
 
         private void button11_Click(object sender, EventArgs e)
         {
-
+            if (IsConnected)
+            {
+                string reply;
+                reply = service.ExitFromGame(my_name);
+                if(reply.Equals("ES"))
+                {
+                    string info = "Exit from game succesfull!";
+                    Logs.AddToLog(textBox1, info);
+                }
+                IsConnected = false;
+            }
+            else
+            {
+                string info = "You are not connected to game!";
+                Logs.AddToLog(textBox1, info);
+            }
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
             if (!IsConnected)
             {
+                string reply;
 
-                IsConnected = true;
+                my_name = "Toe";
+                reply = service.JoinToGame(my_name);
+                if(reply.Equals("JS"))
+                {
+                    IsConnected = true;
+                    string info = "Join to game succesfull!";
+                    Logs.AddToLog(textBox1, info);
+                }
+                else
+                {
+                    string info = "Game is not exist. You should create the game!";
+                    Logs.AddToLog(textBox1, info);
+                }
             }
             else
             {
                 string info = "You are already in game!";
                 Logs.AddToLog(textBox1, info);
+            }
+        }
+
+        private void WaitOp()
+        {
+            while(true)
+            {
+                string reply;
+                reply = service.WaitOpponent();
+                Logs.AddToLog(textBox1, "dd");
+                if(reply.Equals("OS"))
+                {
+                    string info = "Opponent is connected!";
+                    Logs.AddToLog(textBox1, info);
+                    OpponentConnected = true;
+
+                    break;
+                }
+
+                Thread.Sleep(1000);
             }
         }
     }

@@ -51,5 +51,25 @@ namespace TicTacToeServer
             }
         }
 
+        [WebMethod]
+        public string ExitFromGame(string player_name)
+        {
+            arrPlayers.Remove(player_name);
+            return "ES"; // Exit success 
+        }
+
+        [WebMethod]
+        public string WaitOpponent()
+        {
+            if (arrPlayers.Count == 2)
+            {
+                return "OC"; // Opponent connected
+            }
+            else
+            {
+                return "ON"; // Opponent is not connected
+            }
+        }
+
     }
 }
