@@ -20,13 +20,25 @@ namespace TicTacToeServer
     {
         static protected ArrayList arrPlayers = new ArrayList();
         static protected ArrayList arrVerdicts = new ArrayList(9);
+        static protected ArrayList arrCommands = new ArrayList(9);
+
         private static Mutex mut = new Mutex();
 
-        private void ClearVerdicts()
+        int curTurn = 0;
+
+        private void ClearData()
         {
+            curTurn = 0;
+
             for (int i = 0; i < 9; i++)
             {
                 arrVerdicts.Add(TicTacToeLogic.VERDICT.NONE);
+                arrCommands.RemoveAt(i);
+            }
+
+            for(int i = 0; i < arrPlayers.Count; i++)
+            {
+                arrPlayers.RemoveAt(i);
             }
         }
 
@@ -37,7 +49,7 @@ namespace TicTacToeServer
             if (arrPlayers.Count == 0)
             {
                 arrPlayers.Add(player_name);
-                ClearVerdicts();
+                ClearData();
 
                 mut.ReleaseMutex();
 
@@ -110,10 +122,12 @@ namespace TicTacToeServer
 
             if(player_name.Equals("Tic"))
             {
+                String command = row.ToString() + ":" + col.ToString();
                 verdict = TicTacToeLogic.TickMoved(row, col);
 
                 mut.WaitOne();
                 arrVerdicts.Add(verdict);
+                arrCommands.Add(command);
                 mut.ReleaseMutex();
 
                 if(verdict == TicTacToeLogic.VERDICT.CONTINUE)
@@ -134,10 +148,12 @@ namespace TicTacToeServer
             }
             else
             {
+                String command = row.ToString() + ":" + col.ToString();
                 verdict = TicTacToeLogic.ToeMoved(row, col);
 
                 mut.WaitOne();
                 arrVerdicts.Add(verdict);
+                arrCommands.Add(command);
                 mut.ReleaseMutex();
 
                 if (verdict == TicTacToeLogic.VERDICT.CONTINUE)
@@ -165,8 +181,44 @@ namespace TicTacToeServer
         [WebMethod]
         public string ReceiveCommand(string player_name)
         {
+            if(arrVerdicts[curTurn].Equals(TicTacToeLogic.VERDICT.NONE))
+            {
+                return "W" + "#"; // Wait the opponent
+            }
 
-            return "";
+            if(arrVerdicts[curTurn].Equals(TicTacToeLogic.VERDICT.CONTINUE))
+            {
+                //Send opponent command
+                string message = "C" + "#" + arrCommands[curTurn];
+                curTurn++;
+                return message; // Continue. Your turn
+            }
+
+            if(arrVerdicts[curTurn].Equals(TicTacToeLogic.VERDICT.TIC_WINS) && player_name.Equals("Toe"))
+            {
+                //Send opponent command
+                string message = "TiW" + "#" + arrCommands[curTurn];
+                ClearData();
+                return message; // Tic wins
+            }
+
+            if (arrVerdicts[curTurn].Equals(TicTacToeLogic.VERDICT.TOE_WINS) && player_name.Equals("Tic"))
+            {
+                //Send opponent command
+                string message = "ToW" + "#" + arrCommands[curTurn];
+                ClearData();
+                return message; // Toe wins
+            }
+
+            if (arrVerdicts[curTurn].Equals(TicTacToeLogic.VERDICT.DRAW))
+            {
+                //Send opponent command
+                string message = "D" + "#" + arrCommands[curTurn];
+                ClearData();
+                return "D"; // Draw
+            }
+
+            return "W" + "#";
         }
 
     }
