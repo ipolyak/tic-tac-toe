@@ -269,7 +269,7 @@ namespace TicTacToeServer
                 //Send opponent command
                 string message = "D" + "#" + arrCommands[curTurnToe];
                 ClearData();
-                return "D"; // Draw
+                return message; // Draw
             }
 
             if (player_name.Equals("Tic") && arrVerdicts[curTurnTic].Equals(TicTacToeLogic.VERDICT.DRAW))
@@ -277,7 +277,7 @@ namespace TicTacToeServer
                 //Send opponent command
                 string message = "D" + "#" + arrCommands[curTurnTic];
                 ClearData();
-                return "D"; // Draw
+                return message; // Draw
             }
 
             return "W" + "#";
