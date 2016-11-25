@@ -33,6 +33,8 @@ namespace TicTacToeClient.GameService {
         
         private System.Threading.SendOrPostCallback JoinToGameOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CheckOperationCompleted;
+        
         private System.Threading.SendOrPostCallback ExitFromGameOperationCompleted;
         
         private System.Threading.SendOrPostCallback WaitOpponentOperationCompleted;
@@ -84,6 +86,9 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         public event JoinToGameCompletedEventHandler JoinToGameCompleted;
+        
+        /// <remarks/>
+        public event CheckCompletedEventHandler CheckCompleted;
         
         /// <remarks/>
         public event ExitFromGameCompletedEventHandler ExitFromGameCompleted;
@@ -152,6 +157,33 @@ namespace TicTacToeClient.GameService {
             if ((this.JoinToGameCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.JoinToGameCompleted(this, new JoinToGameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Check", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public VERDICT Check() {
+            object[] results = this.Invoke("Check", new object[0]);
+            return ((VERDICT)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CheckAsync() {
+            this.CheckAsync(null);
+        }
+        
+        /// <remarks/>
+        public void CheckAsync(object userState) {
+            if ((this.CheckOperationCompleted == null)) {
+                this.CheckOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCheckOperationCompleted);
+            }
+            this.InvokeAsync("Check", new object[0], this.CheckOperationCompleted, userState);
+        }
+        
+        private void OnCheckOperationCompleted(object arg) {
+            if ((this.CheckCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CheckCompleted(this, new CheckCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -293,6 +325,31 @@ namespace TicTacToeClient.GameService {
     }
     
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum VERDICT {
+        
+        /// <remarks/>
+        ERROR,
+        
+        /// <remarks/>
+        CONTINUE,
+        
+        /// <remarks/>
+        DRAW,
+        
+        /// <remarks/>
+        TIC_WINS,
+        
+        /// <remarks/>
+        TOE_WINS,
+        
+        /// <remarks/>
+        NONE,
+    }
+    
+    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
     public delegate void CreateGameCompletedEventHandler(object sender, CreateGameCompletedEventArgs e);
     
@@ -340,6 +397,32 @@ namespace TicTacToeClient.GameService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void CheckCompletedEventHandler(object sender, CheckCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CheckCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CheckCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public VERDICT Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((VERDICT)(this.results[0]));
             }
         }
     }

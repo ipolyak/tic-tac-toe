@@ -33,7 +33,7 @@ namespace TicTacToeClient
         {
             string reply;
             reply = service.SendCommandGame(row, col, my_name);
-
+            Logs.AddToLog(textBox1, my_name);
             if(reply.Equals("W"))
             {
                 ConfirmCommand(row, col, 0);
@@ -93,6 +93,9 @@ namespace TicTacToeClient
                 reply = service.ReceiveCommand(my_name);
                 verdict = RetrieveVerdictInfo(reply);
 
+               /* Logs.AddToLog(textBox1, verdict);
+                Logs.AddToLog(textBox1, reply);
+                */
                 if (verdict.Equals("W"))
                 {
                     Thread.Sleep(500);
@@ -267,22 +270,6 @@ namespace TicTacToeClient
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if (!OpponentTurned)
-            {
-                cell_coord_row = 1;
-                cell_coord_col = 0;
-
-                SendCommand(1, 0);
-            }
-            else
-            {
-                string info = "Opponent turn. Please wait";
-                Logs.AddToLog(textBox1, info);
-            }
-        }
-
         private void button4_Click(object sender, EventArgs e)
         {
             if (OpponentConnected)
@@ -290,9 +277,9 @@ namespace TicTacToeClient
                 if (!OpponentTurned)
                 {
                     cell_coord_row = 1;
-                    cell_coord_col = 1;
+                    cell_coord_col = 0;
 
-                    SendCommand(1, 1);
+                    SendCommand(1, 0);
                 }
                 else
                 {
@@ -303,6 +290,22 @@ namespace TicTacToeClient
             else
             {
                 string info = "Opponent is not connected. Please wait";
+                Logs.AddToLog(textBox1, info);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (!OpponentTurned)
+            {
+                cell_coord_row = 1;
+                cell_coord_col = 1;
+
+                SendCommand(1, 1);
+            }
+            else
+            {
+                string info = "Opponent turn. Please wait";
                 Logs.AddToLog(textBox1, info);
             }
         }
@@ -473,8 +476,11 @@ namespace TicTacToeClient
                     IsConnected = true;
                     OpponentTurned = true;
 
-                    string info = "Join to game succesfull!";
+                    string info = "Join to game succesfull! Wait opponent...";
                     Logs.AddToLog(textBox1, info);
+
+                    Thread WaitOponnentThread = new Thread(RecvCommand);
+                    WaitOponnentThread.Start();
                 }
                 else
                 {

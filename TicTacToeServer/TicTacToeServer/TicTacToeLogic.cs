@@ -93,12 +93,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if(num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-                
             }
 
             if (row == 0 && col == 1)
@@ -113,12 +107,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 0 && col == 2)
@@ -134,12 +122,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 1 && col == 0)
@@ -154,12 +136,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 1 && col == 1)
@@ -176,12 +152,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 1 && col == 2)
@@ -196,12 +166,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 2 && col == 0)
@@ -217,12 +181,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 2 && col == 1)
@@ -237,12 +195,6 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
-
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
             }
 
             if (row == 2 && col == 2)
@@ -258,12 +210,11 @@ namespace TicTacToeServer
 
                     return VERDICT.TOE_WINS;
                 }
+            }
 
-                if (num_turn < MAX_TURN)
-                {
-                    return VERDICT.CONTINUE;
-                }
-
+            if (num_turn < MAX_TURN)
+            {
+                return VERDICT.CONTINUE;
             }
 
             return VERDICT.DRAW;
