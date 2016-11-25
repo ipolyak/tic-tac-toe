@@ -36,14 +36,16 @@ namespace TicTacToeClient
 
             if(reply.Equals("W"))
             {
-                ConfirmCommand(row, col);
+                ConfirmCommand(row, col, 0);
                 OpponentTurned = true;
-                // TODO: Create receive thread
+
+                Thread WaitOponnentThread = new Thread(RecvCommand);
+                WaitOponnentThread.Start();
             }
 
             if(reply.Equals("TiW"))
             {
-                ConfirmCommand(row, col);
+                ConfirmCommand(row, col, 0);
                 MyScoreUp();
 
                 IsConnected = false;
@@ -55,7 +57,7 @@ namespace TicTacToeClient
 
             if (reply.Equals("ToW"))
             {
-                ConfirmCommand(row, col);
+                ConfirmCommand(row, col, 0);
                 MyScoreUp();
 
                 IsConnected = false;
@@ -67,7 +69,7 @@ namespace TicTacToeClient
 
             if (reply.Equals("D"))
             {
-                ConfirmCommand(row, col);
+                ConfirmCommand(row, col, 0);
 
                 IsConnected = false;
                 OpponentConnected = false;
@@ -83,115 +85,98 @@ namespace TicTacToeClient
             }
         }
 
-        private void ConfirmCommand(int row, int col)
+        private void RecvCommand()
         {
-            if(row == 0 && col == 0)
+            while (true)
             {
-                if (my_name.Equals("Tic"))
-                {
-                    button1.Text = "X";
-                }
-                else
-                {
-                    button1.Text = "O";
-                }
-            }
+                string reply, verdict, game_command, row, col;
+                reply = service.ReceiveCommand(my_name);
+                verdict = RetrieveVerdictInfo(reply);
 
-            if (row == 0 && col == 1)
-            {
-                if (my_name.Equals("Tic"))
+                if (verdict.Equals("W"))
                 {
-                    button2.Text = "X";
+                    Thread.Sleep(500);
+                    continue;
                 }
-                else
-                {
-                    button2.Text = "O";
-                }
-            }
 
-            if (row == 0 && col == 2)
-            {
-                if (my_name.Equals("Tic"))
+                if(verdict.Equals("C"))
                 {
-                    button3.Text = "X";
-                }
-                else
-                {
-                    button3.Text = "O";
-                }
-            }
+                    int i_row = 0, i_col = 0;
+                    game_command = RetrieveGameCommand(reply);
+                    row = RetrieveRow(game_command);
+                    col = RetrieveCol(game_command);
 
-            if (row == 1 && col == 0)
-            {
-                if (my_name.Equals("Tic"))
-                {
-                    button4.Text = "X";
-                }
-                else
-                {
-                    button4.Text = "O";
-                }
-            }
+                    i_row = Convert.ToInt32(row); i_col = Convert.ToInt32(col);
+                    ConfirmCommand(i_row, i_col, 1);
+                    OpponentTurned = false;
 
-            if (row == 1 && col == 1)
-            {
-                if (my_name.Equals("Tic"))
-                {
-                    button5.Text = "X";
-                }
-                else
-                {
-                    button5.Text = "O";
-                }
-            }
+                    string info = "Your turn!";
+                    Logs.AddToLog(textBox1, info);
 
-            if (row == 1 && col == 2)
-            {
-                if (my_name.Equals("Tic"))
-                {
-                    button6.Text = "X";
+                    break;
                 }
-                else
-                {
-                    button6.Text = "O";
-                }
-            }
 
-            if (row == 2 && col == 0)
-            {
-                if (my_name.Equals("Tic"))
+                if (verdict.Equals("TiW"))
                 {
-                    button7.Text = "X";
-                }
-                else
-                {
-                    button7.Text = "O";
-                }
-            }
+                    int i_row = 0, i_col = 0;
+                    game_command = RetrieveGameCommand(reply);
+                    row = RetrieveRow(game_command);
+                    col = RetrieveCol(game_command);
 
-            if (row == 2 && col == 1)
-            {
-                if (my_name.Equals("Tic"))
-                {
-                    button8.Text = "X";
-                }
-                else
-                {
-                    button8.Text = "O";
-                }
-            }
+                    i_row = Convert.ToInt32(row); i_col = Convert.ToInt32(col);
+                    ConfirmCommand(i_row, i_col, 1);
 
-            if (row == 2 && col == 2)
-            {
-                if (my_name.Equals("Tic"))
-                {
-                    button9.Text = "X";
+                    string info = "Tic wins! You loose!";
+                    Logs.AddToLog(textBox1, info);
+
+                    EnemyScoreUp();
+
+                    IsConnected = false;
+                    OpponentConnected = false;
+
+                    break;
                 }
-                else
+
+                if (verdict.Equals("ToW"))
                 {
-                    button9.Text = "O";
+                    int i_row = 0, i_col = 0;
+                    game_command = RetrieveGameCommand(reply);
+                    row = RetrieveRow(game_command);
+                    col = RetrieveCol(game_command);
+
+                    i_row = Convert.ToInt32(row); i_col = Convert.ToInt32(col);
+                    ConfirmCommand(i_row, i_col, 1);
+
+                    string info = "Toe wins! You loose!";
+                    Logs.AddToLog(textBox1, info);
+
+                    EnemyScoreUp();
+
+                    IsConnected = false;
+                    OpponentConnected = false;
+
+                    break;
                 }
-            }
+
+                if (verdict.Equals("D"))
+                {
+                    int i_row = 0, i_col = 0;
+                    game_command = RetrieveGameCommand(reply);
+                    row = RetrieveRow(game_command);
+                    col = RetrieveCol(game_command);
+
+                    i_row = Convert.ToInt32(row); i_col = Convert.ToInt32(col);
+                    ConfirmCommand(i_row, i_col, 1);
+
+                    string info = "Draw!";
+                    Logs.AddToLog(textBox1, info);
+
+                    IsConnected = false;
+                    OpponentConnected = false;
+
+                    break;
+                }
+            }         
         }
 
         private void MyScoreUp()
@@ -424,6 +409,7 @@ namespace TicTacToeClient
             {
                 string reply;
 
+                ClearArea();
                 my_name = "Tic";
                 reply = service.CreateGame(my_name);
 
@@ -478,6 +464,8 @@ namespace TicTacToeClient
             {
                 string reply;
 
+                ClearArea();
+
                 my_name = "Toe";
                 reply = service.JoinToGame(my_name);
                 if(reply.Equals("JS"))
@@ -518,6 +506,268 @@ namespace TicTacToeClient
 
                 Thread.Sleep(1000);
             }
+        }
+
+        private string RetrieveVerdictInfo(string reply)
+        {
+            string[] tmp = reply.Split('#');
+            return tmp[0];
+        }
+
+        private string RetrieveGameCommand(string reply)
+        {
+            string[] tmp = reply.Split('#');
+            return tmp[1];
+        }
+
+        private string RetrieveRow(string game_command)
+        {
+            string[] tmp = game_command.Split(':');
+            return tmp[0];
+        }
+
+        private string RetrieveCol(string game_command)
+        {
+            string[] tmp = game_command.Split(':');
+            return tmp[1];
+        }
+
+        // option 0 - my actions. option 1 - enemy actions
+        private void ConfirmCommand(int row, int col, int option)
+        {
+            if (option == 0)
+            {
+                if (row == 0 && col == 0)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button1.Text = "X";
+                    }
+                    else
+                    {
+                        button1.Text = "O";
+                    }
+                }
+
+                if (row == 0 && col == 1)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button2.Text = "X";
+                    }
+                    else
+                    {
+                        button2.Text = "O";
+                    }
+                }
+
+                if (row == 0 && col == 2)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button3.Text = "X";
+                    }
+                    else
+                    {
+                        button3.Text = "O";
+                    }
+                }
+
+                if (row == 1 && col == 0)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button4.Text = "X";
+                    }
+                    else
+                    {
+                        button4.Text = "O";
+                    }
+                }
+
+                if (row == 1 && col == 1)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button5.Text = "X";
+                    }
+                    else
+                    {
+                        button5.Text = "O";
+                    }
+                }
+
+                if (row == 1 && col == 2)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button6.Text = "X";
+                    }
+                    else
+                    {
+                        button6.Text = "O";
+                    }
+                }
+
+                if (row == 2 && col == 0)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button7.Text = "X";
+                    }
+                    else
+                    {
+                        button7.Text = "O";
+                    }
+                }
+
+                if (row == 2 && col == 1)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button8.Text = "X";
+                    }
+                    else
+                    {
+                        button8.Text = "O";
+                    }
+                }
+
+                if (row == 2 && col == 2)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button9.Text = "X";
+                    }
+                    else
+                    {
+                        button9.Text = "O";
+                    }
+                }
+            }
+            else
+            {
+                if (row == 0 && col == 0)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button1.Text = "O";
+                    }
+                    else
+                    {
+                        button1.Text = "X";
+                    }
+                }
+
+                if (row == 0 && col == 1)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button2.Text = "O";
+                    }
+                    else
+                    {
+                        button2.Text = "X";
+                    }
+                }
+
+                if (row == 0 && col == 2)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button3.Text = "O";
+                    }
+                    else
+                    {
+                        button3.Text = "X";
+                    }
+                }
+
+                if (row == 1 && col == 0)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button4.Text = "O";
+                    }
+                    else
+                    {
+                        button4.Text = "X";
+                    }
+                }
+
+                if (row == 1 && col == 1)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button5.Text = "O";
+                    }
+                    else
+                    {
+                        button5.Text = "X";
+                    }
+                }
+
+                if (row == 1 && col == 2)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button6.Text = "O";
+                    }
+                    else
+                    {
+                        button6.Text = "X";
+                    }
+                }
+
+                if (row == 2 && col == 0)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button7.Text = "O";
+                    }
+                    else
+                    {
+                        button7.Text = "X";
+                    }
+                }
+
+                if (row == 2 && col == 1)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button8.Text = "O";
+                    }
+                    else
+                    {
+                        button8.Text = "X";
+                    }
+                }
+
+                if (row == 2 && col == 2)
+                {
+                    if (my_name.Equals("Tic"))
+                    {
+                        button9.Text = "O";
+                    }
+                    else
+                    {
+                        button9.Text = "X";
+                    }
+                }
+            }
+        }
+
+        private void ClearArea()
+        {
+            button1.Text = "";
+            button2.Text = "";
+            button3.Text = "";
+            button4.Text = "";
+            button5.Text = "";
+            button6.Text = "";
+            button7.Text = "";
+            button8.Text = "";
+            button9.Text = "";
         }
     }
 }

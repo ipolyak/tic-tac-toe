@@ -49,7 +49,12 @@ namespace TicTacToeServer
             if (arrPlayers.Count == 0)
             {
                 arrPlayers.Add(player_name);
-                ClearData();
+                curTurn = 0;
+
+                for (int i = 0; i < 9; i++)
+                {
+                    arrVerdicts.Add(TicTacToeLogic.VERDICT.NONE);
+                }
 
                 mut.ReleaseMutex();
 
