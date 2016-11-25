@@ -33,8 +33,10 @@ namespace TicTacToeClient
         {
             string reply;
             reply = service.SendCommandGame(row, col, my_name);
-            Logs.AddToLog(textBox1, my_name);
-            if(reply.Equals("W"))
+
+            Logs.AddToLog(textBox1, reply);
+
+            if (reply.Equals("W"))
             {
                 ConfirmCommand(row, col, 0);
                 OpponentTurned = true;
@@ -92,10 +94,7 @@ namespace TicTacToeClient
                 string reply, verdict, game_command, row, col;
                 reply = service.ReceiveCommand(my_name);
                 verdict = RetrieveVerdictInfo(reply);
-
-               /* Logs.AddToLog(textBox1, verdict);
-                Logs.AddToLog(textBox1, reply);
-                */
+                
                 if (verdict.Equals("W"))
                 {
                     Thread.Sleep(500);
@@ -105,6 +104,9 @@ namespace TicTacToeClient
                 if(verdict.Equals("C"))
                 {
                     int i_row = 0, i_col = 0;
+
+                    Logs.AddToLog(textBox1, reply);
+
                     game_command = RetrieveGameCommand(reply);
                     row = RetrieveRow(game_command);
                     col = RetrieveCol(game_command);
@@ -122,6 +124,9 @@ namespace TicTacToeClient
                 if (verdict.Equals("TiW"))
                 {
                     int i_row = 0, i_col = 0;
+
+                    Logs.AddToLog(textBox1, reply);
+
                     game_command = RetrieveGameCommand(reply);
                     row = RetrieveRow(game_command);
                     col = RetrieveCol(game_command);
@@ -143,6 +148,9 @@ namespace TicTacToeClient
                 if (verdict.Equals("ToW"))
                 {
                     int i_row = 0, i_col = 0;
+
+                    Logs.AddToLog(textBox1, reply);
+
                     game_command = RetrieveGameCommand(reply);
                     row = RetrieveRow(game_command);
                     col = RetrieveCol(game_command);
@@ -164,6 +172,9 @@ namespace TicTacToeClient
                 if (verdict.Equals("D"))
                 {
                     int i_row = 0, i_col = 0;
+
+                    Logs.AddToLog(textBox1, reply);
+
                     game_command = RetrieveGameCommand(reply);
                     row = RetrieveRow(game_command);
                     col = RetrieveCol(game_command);
@@ -475,6 +486,7 @@ namespace TicTacToeClient
                 {
                     IsConnected = true;
                     OpponentTurned = true;
+                    OpponentConnected = true;
 
                     string info = "Join to game succesfull! Wait opponent...";
                     Logs.AddToLog(textBox1, info);

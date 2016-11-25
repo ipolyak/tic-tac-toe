@@ -98,7 +98,7 @@ namespace TicTacToeServer
             if (row == 0 && col == 1)
             {
                 if (GameArea[0, 0] == cur_state && GameArea[0, 2] == cur_state ||
-                   GameArea[1, 1] == cur_state && GameArea[2, 1] == cur_state )
+                    GameArea[1, 1] == cur_state && GameArea[2, 1] == cur_state )
                 {
                     if (cur_state == STATE_CELL.TIC)
                     {
