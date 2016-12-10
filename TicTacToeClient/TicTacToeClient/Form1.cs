@@ -22,6 +22,7 @@ namespace TicTacToeClient
         bool OpponentTurned = false;
 
         string my_name;
+        int group;
 
         public Form1()
         {
@@ -421,29 +422,21 @@ namespace TicTacToeClient
         {
             if(!IsConnected)
             {
-                string reply;
+                int reply;
 
                 ClearArea();
                 my_name = "Tic";
-                reply = service.CreateGame(my_name);
+                group = service.CreateGame(my_name);
 
-                if (reply.Equals("CS"))
-                {
-                    // Waiting connecting of opponent
-                    IsConnected = true;
-                    OpponentTurned = false;
+                // Waiting connecting of opponent
+                IsConnected = true;
+                OpponentTurned = false;
 
-                    string info = "Game created succesfully. Please wait the opponent!";
-                    Logs.AddToLog(textBox1, info);
+                string info = "Game created succesfully. Please wait the opponent!";
+                Logs.AddToLog(textBox1, info);
 
-                    Thread WaitOponnentThread = new Thread(WaitOp);
-                    WaitOponnentThread.Start();
-                }
-                else
-                {
-                    string info = "Game already created by some user!";
-                    Logs.AddToLog(textBox1, info);
-                }
+                Thread WaitOponnentThread = new Thread(WaitOp);
+                WaitOponnentThread.Start();
             }
             else
             {

@@ -18,59 +18,82 @@ namespace TicTacToeServer
     // [System.Web.Script.Services.ScriptService]
     public class TicTacToeWebService : System.Web.Services.WebService
     {
-        static protected ArrayList arrPlayers = new ArrayList();
-        static protected ArrayList arrVerdicts = new ArrayList(9);
-        static protected ArrayList arrCommands = new ArrayList(9);
+        static protected List<List<String>> arrPlayers = new List<List<String>>();
+        static protected List<List<TicTacToeLogic.VERDICT>> arrVerdicts = new List<List<TicTacToeLogic.VERDICT>>();
+        static protected List<List<String>> arrCommands = new List<List<String>>();
 
         private static Mutex mut = new Mutex();
 
-        private static int curTurnTic = 0;
-        private static int curTurnToe = 0;
+        private static List<List<int>> curTurnTic = new List<List<int>>();
+        private static List<List<int>> curTurnToe = new List<List<int>>();
+        private static List<List<int>> num_turn = new List<List<int>>();
 
-        private void ClearData()
+        private static List<TicTacToeLogic.STATE_CELL[,]> GameAreaList = new List<TicTacToeLogic.STATE_CELL[,]>();
+
+        private static int group_count = 0;
+
+
+        private void ClearData(int group)
         {
             for (int i = 0; i < 9; i++)
             {
-                arrVerdicts[i] = TicTacToeLogic.VERDICT.NONE;
+                arrVerdicts[group][i] = TicTacToeLogic.VERDICT.NONE;
             }
 
-            arrCommands.Clear();
-            arrPlayers.Clear();
-
-            curTurnTic = 0;
-            curTurnToe = 0;
+            arrCommands[group].Clear();
+            arrPlayers[group].Clear();
         }
 
         [WebMethod]
-        public string CreateGame(string player_name)
+        public int CreateGame(string player_name)
         {
             mut.WaitOne();
-            if (arrPlayers.Count == 0)
+
+            int group = group_count;
+            List<string> L = new List<string>();
+
+            arrPlayers.Add(L);
+
+            arrPlayers[group].Add(player_name);
+
+            List<int> T = new List<int>(1);
+            List<int> O = new List<int>(1);
+
+            curTurnTic.Add(T);
+            curTurnToe.Add(O);
+
+            curTurnTic[group][0] = 0;
+            curTurnToe[group][0] = 0;
+
+            List<TicTacToeLogic.VERDICT> V = new List<TicTacToeLogic.VERDICT>(9);
+            arrVerdicts.Add(V);
+
+            for (int i = 0; i < 9; i++)
             {
-                arrPlayers.Add(player_name);
-                curTurnTic = 0;
-                curTurnToe = 0;
-
-                for (int i = 0; i < 9; i++)
-                {
-                    arrVerdicts.Add(TicTacToeLogic.VERDICT.NONE);
-                }
-
-                mut.ReleaseMutex();
-
-                TicTacToeLogic.InitGame();
-
-                return "CS"; // Creating success
+                arrVerdicts[group][i] = TicTacToeLogic.VERDICT.NONE;
             }
-            else
-            {
-                mut.ReleaseMutex();
-                return "CE"; // Creating error
-            }
+
+            List<string> C = new List<string>(9);
+            arrCommands.Add(C);
+
+            TicTacToeLogic.STATE_CELL[,] GameArea = new TicTacToeLogic.STATE_CELL[TicTacToeLogic.MAX_ROW, TicTacToeLogic.MAX_COL];
+            GameAreaList.Add(GameArea);
+
+            List<int> N = new List<int>(1);
+            num_turn.Add(N);
+
+            num_turn[group][0] = 0;
+
+            TicTacToeLogic.InitGame(GameAreaList[group]);
+
+            mut.ReleaseMutex();
+
+            return group; // Creating success
+        
         }
 
         [WebMethod]
-        public string JoinToGame(string player_name)
+        public int JoinToGame(string player_name)
         {
             mut.WaitOne();
             if (arrPlayers.Count == 1)

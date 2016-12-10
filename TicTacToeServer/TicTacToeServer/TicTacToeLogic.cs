@@ -9,17 +9,12 @@ namespace TicTacToeServer
     {
         public enum STATE_CELL { EMPTY, TIC, TOE};
         public enum VERDICT { ERROR, CONTINUE, DRAW, TIC_WINS, TOE_WINS, NONE};
-        const int MAX_TURN = 9;
-        const int MAX_COL = 3;
-        const int MAX_ROW = 3;
+        public const int MAX_TURN = 9;
+        public const int MAX_COL = 3;
+        public const int MAX_ROW = 3;
 
-        static STATE_CELL[,] GameArea = new STATE_CELL[MAX_ROW, MAX_COL];
-
-        static int num_turn;
-        public static void InitGame()
+        public static void InitGame(int num_turn, STATE_CELL[,] GameArea)
         {
-            num_turn = 0;
-
             for(int i = 0; i < MAX_ROW; i++)
             {
                 for(int j = 0; j < MAX_COL; j++)
@@ -29,7 +24,7 @@ namespace TicTacToeServer
             }
         }
 
-        public static STATE_CELL WhoseTurn()
+        public static STATE_CELL WhoseTurn(int num_turn)
         {
             if(num_turn % 2 == 0)
             {
@@ -39,20 +34,15 @@ namespace TicTacToeServer
             return STATE_CELL.TOE;
         }
 
-        private static void NextTurn()
-        {
-            num_turn++;
-        }
-
-        public static VERDICT ToeMoved(int row, int col)
+        public static VERDICT ToeMoved(int row, int col, int num_turn, STATE_CELL[,] GameArea)
         {
             STATE_CELL cur_state = GameArea[row, col];
 
             if(cur_state == STATE_CELL.EMPTY)
             {
                 GameArea[row, col] = STATE_CELL.TOE;
-                NextTurn();
-                return DetermineVerdict(row, col);
+                num_turn++;
+                return DetermineVerdict(row, col, num_turn, GameArea);
             }
             else
             {
@@ -60,15 +50,15 @@ namespace TicTacToeServer
             }
         }
 
-        public static VERDICT TickMoved(int row, int col)
+        public static VERDICT TickMoved(int row, int col, int num_turn, STATE_CELL[,] GameArea)
         {
             STATE_CELL cur_state = GameArea[row, col];
 
             if (cur_state == STATE_CELL.EMPTY)
             {
                 GameArea[row, col] = STATE_CELL.TIC;
-                NextTurn();
-                return DetermineVerdict(row, col);
+                num_turn++;
+                return DetermineVerdict(row, col, num_turn, GameArea);
             }
             else
             {
@@ -76,7 +66,7 @@ namespace TicTacToeServer
             }
         }
 
-        private static VERDICT DetermineVerdict(int row, int col)
+        private static VERDICT DetermineVerdict(int row, int col, int num_turn, STATE_CELL[,] GameArea)
         {
             STATE_CELL cur_state = GameArea[row, col];
 
