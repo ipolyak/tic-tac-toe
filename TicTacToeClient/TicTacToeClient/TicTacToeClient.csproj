@@ -95,9 +95,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\GameService\TicTacToeWebService.wsdl" />
-    <None Include="Web References\GameService\VERDICT.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

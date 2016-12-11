@@ -33,8 +33,6 @@ namespace TicTacToeClient.GameService {
         
         private System.Threading.SendOrPostCallback JoinToGameOperationCompleted;
         
-        private System.Threading.SendOrPostCallback CheckOperationCompleted;
-        
         private System.Threading.SendOrPostCallback ExitFromGameOperationCompleted;
         
         private System.Threading.SendOrPostCallback WaitOpponentOperationCompleted;
@@ -88,9 +86,6 @@ namespace TicTacToeClient.GameService {
         public event JoinToGameCompletedEventHandler JoinToGameCompleted;
         
         /// <remarks/>
-        public event CheckCompletedEventHandler CheckCompleted;
-        
-        /// <remarks/>
         public event ExitFromGameCompletedEventHandler ExitFromGameCompleted;
         
         /// <remarks/>
@@ -104,10 +99,10 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CreateGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string CreateGame(string player_name) {
+        public int CreateGame(string player_name) {
             object[] results = this.Invoke("CreateGame", new object[] {
                         player_name});
-            return ((string)(results[0]));
+            return ((int)(results[0]));
         }
         
         /// <remarks/>
@@ -133,10 +128,10 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/JoinToGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string JoinToGame(string player_name) {
+        public int JoinToGame(string player_name) {
             object[] results = this.Invoke("JoinToGame", new object[] {
                         player_name});
-            return ((string)(results[0]));
+            return ((int)(results[0]));
         }
         
         /// <remarks/>
@@ -161,51 +156,26 @@ namespace TicTacToeClient.GameService {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Check", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public VERDICT Check() {
-            object[] results = this.Invoke("Check", new object[0]);
-            return ((VERDICT)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void CheckAsync() {
-            this.CheckAsync(null);
-        }
-        
-        /// <remarks/>
-        public void CheckAsync(object userState) {
-            if ((this.CheckOperationCompleted == null)) {
-                this.CheckOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCheckOperationCompleted);
-            }
-            this.InvokeAsync("Check", new object[0], this.CheckOperationCompleted, userState);
-        }
-        
-        private void OnCheckOperationCompleted(object arg) {
-            if ((this.CheckCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CheckCompleted(this, new CheckCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ExitFromGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string ExitFromGame(string player_name) {
+        public string ExitFromGame(int group, string player_name) {
             object[] results = this.Invoke("ExitFromGame", new object[] {
+                        group,
                         player_name});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void ExitFromGameAsync(string player_name) {
-            this.ExitFromGameAsync(player_name, null);
+        public void ExitFromGameAsync(int group, string player_name) {
+            this.ExitFromGameAsync(group, player_name, null);
         }
         
         /// <remarks/>
-        public void ExitFromGameAsync(string player_name, object userState) {
+        public void ExitFromGameAsync(int group, string player_name, object userState) {
             if ((this.ExitFromGameOperationCompleted == null)) {
                 this.ExitFromGameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnExitFromGameOperationCompleted);
             }
             this.InvokeAsync("ExitFromGame", new object[] {
+                        group,
                         player_name}, this.ExitFromGameOperationCompleted, userState);
         }
         
@@ -218,22 +188,24 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/WaitOpponent", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string WaitOpponent() {
-            object[] results = this.Invoke("WaitOpponent", new object[0]);
+        public string WaitOpponent(int group) {
+            object[] results = this.Invoke("WaitOpponent", new object[] {
+                        group});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void WaitOpponentAsync() {
-            this.WaitOpponentAsync(null);
+        public void WaitOpponentAsync(int group) {
+            this.WaitOpponentAsync(group, null);
         }
         
         /// <remarks/>
-        public void WaitOpponentAsync(object userState) {
+        public void WaitOpponentAsync(int group, object userState) {
             if ((this.WaitOpponentOperationCompleted == null)) {
                 this.WaitOpponentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWaitOpponentOperationCompleted);
             }
-            this.InvokeAsync("WaitOpponent", new object[0], this.WaitOpponentOperationCompleted, userState);
+            this.InvokeAsync("WaitOpponent", new object[] {
+                        group}, this.WaitOpponentOperationCompleted, userState);
         }
         
         private void OnWaitOpponentOperationCompleted(object arg) {
@@ -245,8 +217,9 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SendCommandGame", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string SendCommandGame(int row, int col, string player_name) {
+        public string SendCommandGame(int group, int row, int col, string player_name) {
             object[] results = this.Invoke("SendCommandGame", new object[] {
+                        group,
                         row,
                         col,
                         player_name});
@@ -254,16 +227,17 @@ namespace TicTacToeClient.GameService {
         }
         
         /// <remarks/>
-        public void SendCommandGameAsync(int row, int col, string player_name) {
-            this.SendCommandGameAsync(row, col, player_name, null);
+        public void SendCommandGameAsync(int group, int row, int col, string player_name) {
+            this.SendCommandGameAsync(group, row, col, player_name, null);
         }
         
         /// <remarks/>
-        public void SendCommandGameAsync(int row, int col, string player_name, object userState) {
+        public void SendCommandGameAsync(int group, int row, int col, string player_name, object userState) {
             if ((this.SendCommandGameOperationCompleted == null)) {
                 this.SendCommandGameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSendCommandGameOperationCompleted);
             }
             this.InvokeAsync("SendCommandGame", new object[] {
+                        group,
                         row,
                         col,
                         player_name}, this.SendCommandGameOperationCompleted, userState);
@@ -278,23 +252,25 @@ namespace TicTacToeClient.GameService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ReceiveCommand", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string ReceiveCommand(string player_name) {
+        public string ReceiveCommand(int group, string player_name) {
             object[] results = this.Invoke("ReceiveCommand", new object[] {
+                        group,
                         player_name});
             return ((string)(results[0]));
         }
         
         /// <remarks/>
-        public void ReceiveCommandAsync(string player_name) {
-            this.ReceiveCommandAsync(player_name, null);
+        public void ReceiveCommandAsync(int group, string player_name) {
+            this.ReceiveCommandAsync(group, player_name, null);
         }
         
         /// <remarks/>
-        public void ReceiveCommandAsync(string player_name, object userState) {
+        public void ReceiveCommandAsync(int group, string player_name, object userState) {
             if ((this.ReceiveCommandOperationCompleted == null)) {
                 this.ReceiveCommandOperationCompleted = new System.Threading.SendOrPostCallback(this.OnReceiveCommandOperationCompleted);
             }
             this.InvokeAsync("ReceiveCommand", new object[] {
+                        group,
                         player_name}, this.ReceiveCommandOperationCompleted, userState);
         }
         
@@ -325,31 +301,6 @@ namespace TicTacToeClient.GameService {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum VERDICT {
-        
-        /// <remarks/>
-        ERROR,
-        
-        /// <remarks/>
-        CONTINUE,
-        
-        /// <remarks/>
-        DRAW,
-        
-        /// <remarks/>
-        TIC_WINS,
-        
-        /// <remarks/>
-        TOE_WINS,
-        
-        /// <remarks/>
-        NONE,
-    }
-    
-    /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
     public delegate void CreateGameCompletedEventHandler(object sender, CreateGameCompletedEventArgs e);
     
@@ -367,10 +318,10 @@ namespace TicTacToeClient.GameService {
         }
         
         /// <remarks/>
-        public string Result {
+        public int Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((int)(this.results[0]));
             }
         }
     }
@@ -393,36 +344,10 @@ namespace TicTacToeClient.GameService {
         }
         
         /// <remarks/>
-        public string Result {
+        public int Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
-    public delegate void CheckCompletedEventHandler(object sender, CheckCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CheckCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal CheckCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public VERDICT Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((VERDICT)(this.results[0]));
+                return ((int)(this.results[0]));
             }
         }
     }

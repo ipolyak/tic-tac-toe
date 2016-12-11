@@ -51,6 +51,8 @@ namespace TicTacToeServer
             mut.WaitOne();
 
             int group = group_count;
+            group_count++;
+
             List<string> L = new List<string>(2);
 
             arrPlayers.Add(L);
@@ -63,15 +65,15 @@ namespace TicTacToeServer
             curTurnTic.Add(T);
             curTurnToe.Add(O);
 
-            curTurnTic[group][0] = 0;
-            curTurnToe[group][0] = 0;
+            curTurnTic[group].Add(0);
+            curTurnToe[group].Add(0);
 
             List<TicTacToeLogic.VERDICT> V = new List<TicTacToeLogic.VERDICT>(9);
             arrVerdicts.Add(V);
 
             for (int i = 0; i < 9; i++)
             {
-                arrVerdicts[group][i] = TicTacToeLogic.VERDICT.NONE;
+                arrVerdicts[group].Add(TicTacToeLogic.VERDICT.NONE);
             }
 
             List<string> C = new List<string>(9);
@@ -83,7 +85,7 @@ namespace TicTacToeServer
             List<int> N = new List<int>(1);
             num_turn.Add(N);
 
-            num_turn[group][0] = 0;
+            num_turn[group].Add(0);
 
             TicTacToeLogic.InitGame(GameAreaList[group]);
 
@@ -103,7 +105,7 @@ namespace TicTacToeServer
 
                 join_count++;
 
-                arrPlayers[join][1] = player_name;
+                arrPlayers[join].Add(player_name);
 
                 mut.ReleaseMutex();
 
@@ -117,15 +119,15 @@ namespace TicTacToeServer
         }
 
         [WebMethod]
-        public string ExitFromGame(string player_name)
+        public string ExitFromGame(int group, string player_name)
         {
             mut.WaitOne();
-            for (int i = 0; i < arrPlayers.Count; i++)
+            for (int i = 0; i < arrPlayers[group].Count; i++)
             {
 
-                if (arrPlayers[i].ToString() == player_name)
+                if (arrPlayers[group][i].ToString() == player_name)
                 {
-                    arrPlayers.RemoveAt(i);
+                    arrPlayers[group].RemoveAt(i);
                 }
             }
             mut.ReleaseMutex();

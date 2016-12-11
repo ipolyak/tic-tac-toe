@@ -22,7 +22,7 @@ namespace TicTacToeClient
         bool OpponentTurned = false;
 
         string my_name;
-        int group;
+        int group = -1;
 
         public Form1()
         {
@@ -33,7 +33,7 @@ namespace TicTacToeClient
         private void SendCommand(int row, int col)
         {
             string reply;
-            reply = service.SendCommandGame(row, col, my_name);
+            reply = service.SendCommandGame(group, row, col, my_name);
 
             Logs.AddToLog(textBox1, reply);
 
@@ -93,7 +93,7 @@ namespace TicTacToeClient
             while (true)
             {
                 string reply, verdict, game_command, row, col;
-                reply = service.ReceiveCommand(my_name);
+                reply = service.ReceiveCommand(group, my_name);
                 verdict = RetrieveVerdictInfo(reply);
                 
                 if (verdict.Equals("W"))
@@ -450,7 +450,7 @@ namespace TicTacToeClient
             if (IsConnected)
             {
                 string reply;
-                reply = service.ExitFromGame(my_name);
+                reply = service.ExitFromGame(group, my_name);
                 if(reply.Equals("ES"))
                 {
                     string info = "Exit from game succesfull!";
@@ -469,14 +469,16 @@ namespace TicTacToeClient
         {
             if (!IsConnected)
             {
-                string reply;
+                int reply;
 
                 ClearArea();
 
                 my_name = "Toe";
                 reply = service.JoinToGame(my_name);
-                if(reply.Equals("JS"))
+                if(reply >= 0)
                 {
+                    group = reply;
+
                     IsConnected = true;
                     OpponentTurned = true;
                     OpponentConnected = true;
@@ -489,7 +491,7 @@ namespace TicTacToeClient
                 }
                 else
                 {
-                    string info = "Game is not exist. You should create the game!";
+                    string info = "Opened games are not exist. You should create the game!";
                     Logs.AddToLog(textBox1, info);
                 }
             }
@@ -505,7 +507,7 @@ namespace TicTacToeClient
             while(true)
             {
                 string reply;
-                reply = service.WaitOpponent();
+                reply = service.WaitOpponent(group);
                 if(reply.Equals("OC"))
                 {
                     string info = "Opponent is connected. Your turn!";

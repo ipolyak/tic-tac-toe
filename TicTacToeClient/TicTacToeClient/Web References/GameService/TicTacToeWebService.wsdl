@@ -12,7 +12,7 @@
       <s:element name="CreateGameResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="CreateGameResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreateGameResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -26,33 +26,14 @@
       <s:element name="JoinToGameResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="JoinToGameResult" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="JoinToGameResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="Check">
-        <s:complexType />
-      </s:element>
-      <s:element name="CheckResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="CheckResult" type="tns:VERDICT" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:simpleType name="VERDICT">
-        <s:restriction base="s:string">
-          <s:enumeration value="ERROR" />
-          <s:enumeration value="CONTINUE" />
-          <s:enumeration value="DRAW" />
-          <s:enumeration value="TIC_WINS" />
-          <s:enumeration value="TOE_WINS" />
-          <s:enumeration value="NONE" />
-        </s:restriction>
-      </s:simpleType>
       <s:element name="ExitFromGame">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="group" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="player_name" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -65,7 +46,11 @@
         </s:complexType>
       </s:element>
       <s:element name="WaitOpponent">
-        <s:complexType />
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="group" type="s:int" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="WaitOpponentResponse">
         <s:complexType>
@@ -77,6 +62,7 @@
       <s:element name="SendCommandGame">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="group" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="row" type="s:int" />
             <s:element minOccurs="1" maxOccurs="1" name="col" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="player_name" type="s:string" />
@@ -93,6 +79,7 @@
       <s:element name="ReceiveCommand">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="group" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="player_name" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -117,12 +104,6 @@
   </wsdl:message>
   <wsdl:message name="JoinToGameSoapOut">
     <wsdl:part name="parameters" element="tns:JoinToGameResponse" />
-  </wsdl:message>
-  <wsdl:message name="CheckSoapIn">
-    <wsdl:part name="parameters" element="tns:Check" />
-  </wsdl:message>
-  <wsdl:message name="CheckSoapOut">
-    <wsdl:part name="parameters" element="tns:CheckResponse" />
   </wsdl:message>
   <wsdl:message name="ExitFromGameSoapIn">
     <wsdl:part name="parameters" element="tns:ExitFromGame" />
@@ -157,10 +138,6 @@
       <wsdl:input message="tns:JoinToGameSoapIn" />
       <wsdl:output message="tns:JoinToGameSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="Check">
-      <wsdl:input message="tns:CheckSoapIn" />
-      <wsdl:output message="tns:CheckSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="ExitFromGame">
       <wsdl:input message="tns:ExitFromGameSoapIn" />
       <wsdl:output message="tns:ExitFromGameSoapOut" />
@@ -191,15 +168,6 @@
     </wsdl:operation>
     <wsdl:operation name="JoinToGame">
       <soap:operation soapAction="http://tempuri.org/JoinToGame" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Check">
-      <soap:operation soapAction="http://tempuri.org/Check" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -257,15 +225,6 @@
     </wsdl:operation>
     <wsdl:operation name="JoinToGame">
       <soap12:operation soapAction="http://tempuri.org/JoinToGame" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Check">
-      <soap12:operation soapAction="http://tempuri.org/Check" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
