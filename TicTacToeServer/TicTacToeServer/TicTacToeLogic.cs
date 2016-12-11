@@ -13,7 +13,7 @@ namespace TicTacToeServer
         public const int MAX_COL = 3;
         public const int MAX_ROW = 3;
 
-        public static void InitGame(int num_turn, STATE_CELL[,] GameArea)
+        public static void InitGame(STATE_CELL[,] GameArea)
         {
             for(int i = 0; i < MAX_ROW; i++)
             {
