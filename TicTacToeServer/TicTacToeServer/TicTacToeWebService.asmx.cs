@@ -250,60 +250,60 @@ namespace TicTacToeServer
         [WebMethod]
         public string ReceiveCommand(int group, string player_name)
         {
-            if(player_name.Equals("Tic") && arrVerdicts[curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.NONE))
+            if(player_name.Equals("Tic") && arrVerdicts[group][curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.NONE))
             {
                 return "W" + "#"; // Wait the opponent
             }
 
-            if (player_name.Equals("Toe") && arrVerdicts[curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.NONE))
+            if (player_name.Equals("Toe") && arrVerdicts[group][curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.NONE))
             {
                 return "W" + "#"; // Wait the opponent
             }
 
-            if (player_name.Equals("Tic") && arrVerdicts[curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.CONTINUE))
+            if (player_name.Equals("Tic") && arrVerdicts[group][curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.CONTINUE))
             {
                 //Send opponent command
-                string message = "C" + "#" + arrCommands[curTurnTic[group][0]];
+                string message = "C" + "#" + arrCommands[group][curTurnTic[group][0]];
                 curTurnTic[group][0]++;
                 return message; // Continue. Your turn
             }
 
-            if (player_name.Equals("Toe") && arrVerdicts[curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.CONTINUE))
+            if (player_name.Equals("Toe") && arrVerdicts[group][curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.CONTINUE))
             {
                 //Send opponent command
-                string message = "C" + "#" + arrCommands[curTurnToe[group][0]];
+                string message = "C" + "#" + arrCommands[group][curTurnToe[group][0]];
                 curTurnToe[group][0]++;
                 return message; // Continue. Your turn
             }
 
-            if (player_name.Equals("Toe") && arrVerdicts[curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.TIC_WINS))
+            if (player_name.Equals("Toe") && arrVerdicts[group][curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.TIC_WINS))
             {
                 //Send opponent command
-                string message = "TiW" + "#" + arrCommands[curTurnToe[group][0]];
+                string message = "TiW" + "#" + arrCommands[group][curTurnToe[group][0]];
                 ClearData(group);
                 return message; // Tic wins
             }
 
-            if (player_name.Equals("Tic") && arrVerdicts[curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.TOE_WINS))
+            if (player_name.Equals("Tic") && arrVerdicts[group][curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.TOE_WINS))
             {
                 //Send opponent command
-                string message = "ToW" + "#" + arrCommands[curTurnTic[group][0]];
+                string message = "ToW" + "#" + arrCommands[group][curTurnTic[group][0]];
                 ClearData(group);
                 return message; // Toe wins
             }
 
-            if (player_name.Equals("Toe") && arrVerdicts[curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.DRAW))
+            if (player_name.Equals("Toe") && arrVerdicts[group][curTurnToe[group][0]].Equals(TicTacToeLogic.VERDICT.DRAW))
             {
                 //Send opponent command
-                string message = "D" + "#" + arrCommands[curTurnToe[group][0]];
+                string message = "D" + "#" + arrCommands[group][curTurnToe[group][0]];
                 ClearData(group);
                 return message; // Draw
             }
 
-            if (player_name.Equals("Tic") && arrVerdicts[curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.DRAW))
+            if (player_name.Equals("Tic") && arrVerdicts[group][curTurnTic[group][0]].Equals(TicTacToeLogic.VERDICT.DRAW))
             {
                 //Send opponent command
-                string message = "D" + "#" + arrCommands[curTurnTic[group][0]];
+                string message = "D" + "#" + arrCommands[group][curTurnTic[group][0]];
                 ClearData(group);
                 return message; // Draw
             }
